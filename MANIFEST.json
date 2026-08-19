@@ -1,6 +1,6 @@
 {
-  "version": "0.2.0",
-  "release_name": "The Compass",
+  "version": "0.3.0",
+  "release_name": "The Anchor",
   "updated": "2026-08-17",
   "core": {
     "skills": [
@@ -8,6 +8,7 @@
       "productivity/loop-keeper",
       "productivity/context-watchdog-ingest",
       "productivity/stacking-principle",
+      "productivity/foundational-stories",
       "autonomous-ai-agents/update-identic"
     ],
     "scripts": [
@@ -18,5 +19,5 @@
     ]
   },
   "optional": [],
-  "notes": "First core release. Everything here is genericized: no owner identity, paths, ports, or secrets. Install/ tier carries the setup docs. Optional extras to be curated as they're identified."
+  "notes": "v0.3.0 adds foundational-stories — the three-story grounding layer (birth/creation/ultimate). Machine: the pattern. Man: the owner writes their own stories into the placeholders."
 }
