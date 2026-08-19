@@ -1,6 +1,22 @@
 {
-  "version": "0.1.0",
+  "version": "0.2.0",
+  "release_name": "The Compass",
   "updated": "2026-08-17",
-  "core": [],
-  "optional": []
+  "core": {
+    "skills": [
+      "communication/silence-discipline",
+      "productivity/loop-keeper",
+      "productivity/context-watchdog-ingest",
+      "productivity/stacking-principle",
+      "autonomous-ai-agents/update-identic"
+    ],
+    "scripts": [
+      "loops.py",
+      "context_monitor.py",
+      "topic_dump.py",
+      "update-identic.sh"
+    ]
+  },
+  "optional": [],
+  "notes": "First core release. Everything here is genericized: no owner identity, paths, ports, or secrets. Install/ tier carries the setup docs. Optional extras to be curated as they're identified."
 }
