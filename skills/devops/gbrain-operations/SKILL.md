@@ -96,6 +96,20 @@ gbrain doctor
   2.0) or self-hosted ZeroEntropy weights via llama.cpp `--reranking` — same `gateway.rerank()`
   seam, $0 per call, data never leaves the box. Hosted fallback: `voyage:rerank-2.5`
   (200M free tokens/mo, then paid — needs a key and sends docs off-box).
+- **llama-server reranker pitfalls (verified 2026-08-21):**
+  - **Default physical batch 512 is too small** — real payloads (query + 25 candidate chunks)
+    exceed it → HTTP 500 `input (N tokens) is too large`. Launch with
+    `--batch-size 4096 --ubatch-size 4096`.
+  - **Default context bloats RSS** (40k ctx × 4 slots ≈ 4.5GB+) → OOM-kills on memory-tight
+    boxes mid-request (symptom: `rerank timed out` / `socket connection was closed` in the
+    audit). Use `--ctx-size 8192 --parallel 1`.
+  - **Verify end-to-end:** `gbrain search "<q>" --json` must show `rerank_score` per row.
+    ABSENT = fail-open (reranker not firing or failing); check
+    `~/.gbrain/audit/rerank-failures-*.jsonl` for the reason. Reranker scores are raw-logit
+    scale (e-15) — ordering is what matters, don't round-check for 0-1.
+  - Config keys: `search.reranker.enabled true`, `search.reranker.model
+    llama-server-reranker:<alias>`, `provider_base_urls.llama-server-reranker
+    http://127.0.0.1:8081/v1`, `search.reranker.top_n_in 8`, `search.reranker.timeout_ms 60000`.
 - Sync keys on **committed git state** — commit changed files before `gbrain sync`, or it reports
   "Already up to date" and imports nothing. Use `--no-pull` when the git remote is unreachable.
 
