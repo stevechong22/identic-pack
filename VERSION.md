@@ -1,8 +1,18 @@
 # Version
 
-**Current:** 0.3.0 — **"The Anchor"** · **Last updated:** 2026-08-17
+**Current:** 0.4.0 — **"The Muscle"** · **Last updated:** 2026-08-21
 
 ## Changelog
+
+### 0.4.0 — 2026-08-21
+- Added `goodnight-routine` — the four-step end-of-session loop (reflect, ingest,
+  cross-link, dream cycle) with the five-section learning reflection delivered as text.
+- Added `gbrain-operations` — install/config/health/automation for the retrieval brain
+  (Postgres engine, isolation rules, dream cycle, pitfalls). Genericized.
+- Added `hindsight-install` — persistent-memory daemon setup (local mode, DeepSeek),
+  genericized to per-agent ports and banks.
+- Bootstrap docs (playbook, build spec, BotFather guide) now install via
+  `/update identic` — the full setup curriculum ships with the machine.
 
 ### 0.3.0 — 2026-08-17
 - Added `foundational-stories` skill — the three-story grounding layer
