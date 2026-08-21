@@ -103,13 +103,20 @@ gbrain doctor
   - **Default context bloats RSS** (40k ctx × 4 slots ≈ 4.5GB+) → OOM-kills on memory-tight
     boxes mid-request (symptom: `rerank timed out` / `socket connection was closed` in the
     audit). Use `--ctx-size 8192 --parallel 1`.
+  - **Prefer bge-reranker-v2-m3 over Qwen3-Reranker for CPU boxes.** Qwen3 4B GGUF under
+    llama.cpp: degenerate raw-logit scores (e-15 scale), 39s per real multi-chunk query
+    (client timeout → fail-open), rank-pooling conversion artifacts. bge-reranker-v2-m3
+    Q8 (278M, ~635MB): proper logit scale, 0.2s synthetic / ~2-4s real chunks, sensible
+    ordering with `--pooling cls`. Qwen3-Reranker is a reasonable pick only with a GPU.
   - **Verify end-to-end:** `gbrain search "<q>" --json` must show `rerank_score` per row.
     ABSENT = fail-open (reranker not firing or failing); check
-    `~/.gbrain/audit/rerank-failures-*.jsonl` for the reason. Reranker scores are raw-logit
-    scale (e-15) — ordering is what matters, don't round-check for 0-1.
+    `~/.gbrain/audit/rerank-failures-*.jsonl` for the reason. If the reranker flips a
+    known-relevant page to the bottom, the model/pooling is wrong — swap models, don't
+    tune around it.
   - Config keys: `search.reranker.enabled true`, `search.reranker.model
     llama-server-reranker:<alias>`, `provider_base_urls.llama-server-reranker
-    http://127.0.0.1:8081/v1`, `search.reranker.top_n_in 8`, `search.reranker.timeout_ms 60000`.
+    http://127.0.0.1:8081/v1`, `search.reranker.top_n_in 5-8`,
+    `search.reranker.timeout_ms 60000-120000` (CPU needs the headroom).
 - Sync keys on **committed git state** — commit changed files before `gbrain sync`, or it reports
   "Already up to date" and imports nothing. Use `--no-pull` when the git remote is unreachable.
 
