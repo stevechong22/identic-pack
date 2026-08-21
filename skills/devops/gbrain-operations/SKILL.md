@@ -90,8 +90,12 @@ gbrain doctor
 
 - The `default` source `local_path` **MUST be absolute** — `'.'` resolves to $HOME, finds no .git,
   and auto-creates one (git bloat on root). Fix via psql or config before first sync.
-- **Reranker:** ZeroEntropy's hosted API is deprecated (stops 2026-09-04). Switch now:
-  `gbrain config set search.reranker.model voyage:rerank-2.5`
+- **Reranker:** ZeroEntropy's hosted API is sunset (acquired by Notion; stops 2026-09-04).
+  **No reranker configured = fine** — pure vector search, $0. Free-first local upgrade:
+  the `llama-server-reranker` recipe (v0.40.6.1+) serves Qwen3-Reranker (0.6B/4B/8B, Apache
+  2.0) or self-hosted ZeroEntropy weights via llama.cpp `--reranking` — same `gateway.rerank()`
+  seam, $0 per call, data never leaves the box. Hosted fallback: `voyage:rerank-2.5`
+  (200M free tokens/mo, then paid — needs a key and sends docs off-box).
 - Sync keys on **committed git state** — commit changed files before `gbrain sync`, or it reports
   "Already up to date" and imports nothing. Use `--no-pull` when the git remote is unreachable.
 

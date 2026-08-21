@@ -1,8 +1,17 @@
 # Version & Releases
 
-**Current:** 0.4.0 — **"The Muscle"** · **Last updated:** 2026-08-21
+**Current:** 0.4.1 — **"The Muscle"** · **Last updated:** 2026-08-21
 
 ## Releases
+
+### 0.4.1 — "The Muscle" patch (2026-08-21)
+
+Reranker guidance corrected: ZeroEntropy (gbrain's original hosted reranker
+default) was acquired by Notion and its API sunsets 2026-09-04. Finding from
+investigation: **an unconfigured reranker is fine** — pure vector search on
+local embeddings, $0. Free-first upgrade path: local Qwen3-Reranker via the
+`llama-server-reranker` recipe (Apache 2.0, data stays local). Hosted voyage is
+documented as the paid fallback, not the default.
 
 ### 0.4.0 — "The Muscle" (2026-08-21)
 
