@@ -153,6 +153,20 @@ uvx hindsight-embed profile set-env <agent> HINDSIGHT_API_LLM_MODEL gemini-flash
 uvx hindsight-embed -p <agent> daemon restart
 ```
 
+## Free-tier option: OpenRouter + local fallback (zero-cost extraction)
+
+If the owner wants Hindsight extraction at zero API cost (no paid per-fact DeepSeek):
+
+1. Create a **free OpenRouter account** → API key. Use a `:free` model (e.g. a Qwen `:free` variant).
+2. Point the daemon at OpenRouter — provider value per the hindsight-embed docs
+   (it's an OpenAI-compatible endpoint; **verify the exact provider string at install** rather than
+   assuming `openai`).
+3. Download a **strong local fallback** via Ollama — pick a size that fits the box's RAM
+   (8GB → 4B Q4; 16GB → 8–14B Q4). Set it as the daemon's fallback so extraction survives
+   cloud outages and rate limits.
+4. **Verify a retain call actually extracts facts** — run a recall and confirm content comes back.
+   "0 units extracted" means the provider wiring is wrong, not that the owner said nothing.
+
 ## Health probe (for nightly checks)
 
 ```bash

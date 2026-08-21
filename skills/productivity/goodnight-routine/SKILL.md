@@ -48,7 +48,7 @@ Write `02_MEMORY/<agent-name>-learnings-YYYY-MM-DD.md` with exactly these sectio
 
 1. **About the Owner** — corrections, preferences, patterns, what they care about
 2. **About Me — What I Need to Fix** — what you did wrong, what you improved, hard rules to lock
-3. **About Peers** — cross-agent and family interactions worth noting
+3. **About the People** — name the people who mattered today, never "peers": the partner, **each child by name**, extended family, close friends — plus cross-agent interactions worth noting
 4. **About the System** — config changes, new commands, architecture lessons
 5. **The Human Pattern** — the single most important relational observation of the day
 
