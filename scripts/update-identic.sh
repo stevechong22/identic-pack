@@ -67,8 +67,9 @@ for skill_dir in "$CACHE_DIR"/skills/*/ "$CACHE_DIR"/skills/*/*/; do
 done
 
 # Install scripts
+mkdir -p "$SCRIPTS_TARGET"
 count_scripts=0
-for script in "$CACHE_DIR"/scripts/*; do
+for script in "$CACHE_DIR"/scripts/*.py "$CACHE_DIR"/scripts/*.sh; do
   [ -f "$script" ] || continue
   name="$(basename "$script")"
   cp "$script" "$SCRIPTS_TARGET/$name"
