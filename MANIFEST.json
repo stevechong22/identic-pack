@@ -1,7 +1,7 @@
 {
-  "version": "0.3.0",
-  "release_name": "The Anchor",
-  "updated": "2026-08-17",
+  "version": "0.4.0",
+  "release_name": "The Muscle",
+  "updated": "2026-08-21",
   "core": {
     "skills": [
       "communication/silence-discipline",
@@ -9,6 +9,9 @@
       "productivity/context-watchdog-ingest",
       "productivity/stacking-principle",
       "productivity/foundational-stories",
+      "productivity/goodnight-routine",
+      "devops/gbrain-operations",
+      "devops/hindsight-install",
       "autonomous-ai-agents/update-identic"
     ],
     "scripts": [
@@ -16,8 +19,13 @@
       "context_monitor.py",
       "topic_dump.py",
       "update-identic.sh"
+    ],
+    "docs": [
+      "install/steve-chongs-hermes-identic-ai-setup-playbook.md",
+      "install/steve-chongs-hermes-identic-ai-setup-build-spec.md",
+      "install/steve-chongs-hermes-identic-ai-setup-botfather.md"
     ]
   },
   "optional": [],
-  "notes": "v0.3.0 adds foundational-stories — the three-story grounding layer (birth/creation/ultimate). Machine: the pattern. Man: the owner writes their own stories into the placeholders."
+  "notes": "v0.4.0 adds the operational layer: goodnight-routine (the nightly reflection+maintenance loop), gbrain-operations (retrieval brain), hindsight-install (persistent memory), and the three bootstrap docs now install via /update identic. Machine: the pattern. Man: the owner writes their own stories into the placeholders."
 }

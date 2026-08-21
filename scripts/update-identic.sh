@@ -19,6 +19,7 @@ HOME_DIR="${HERMES_HOME:-$HOME/.hermes}"
 CACHE_DIR="${HOME_DIR}/.cache/identic-pack"
 SKILLS_TARGET="${HOME_DIR}/skills"
 SCRIPTS_TARGET="${HOME_DIR}/scripts"
+DOCS_TARGET="${HOME_DIR}/docs/identic"
 
 DRY=""
 [ "${1:-}" = "--dry-run" ] && DRY=1
@@ -47,7 +48,8 @@ if [ -n "$DRY" ]; then
   echo ""
   echo "→ DRY RUN — would install:"
   find "$CACHE_DIR/skills" -name SKILL.md 2>/dev/null | sed "s|$CACHE_DIR/skills/||;s|/SKILL.md||" | sort | sed 's/^/  skill: /'
-  ls "$CACHE_DIR/scripts"/*.py "$CACHE_DIR/scripts"/*.sh 2>/dev/null | xargs -n1 basename 2>/dev/null | sort | sed 's/^/  script: /'
+  ls "$CACHE_DIR"/scripts/*.py "$CACHE_DIR"/scripts/*.sh 2>/dev/null | xargs -n1 basename 2>/dev/null | sort | sed 's/^/  script: /'
+  ls "$CACHE_DIR"/install/*.md 2>/dev/null | xargs -n1 basename 2>/dev/null | sort | sed 's/^/  doc: /'
   echo ""
   echo "→ Nothing changed (dry run)."
   exit 0
@@ -77,5 +79,16 @@ for script in "$CACHE_DIR"/scripts/*.py "$CACHE_DIR"/scripts/*.sh; do
   count_scripts=$((count_scripts+1))
 done
 
-echo "→ Installed: $count_skills skill(s), $count_scripts script(s)"
+# Install bootstrap docs
+mkdir -p "$DOCS_TARGET"
+count_docs=0
+for doc in "$CACHE_DIR"/install/*.md; do
+  [ -f "$doc" ] || continue
+  name="$(basename "$doc")"
+  cp "$doc" "$DOCS_TARGET/$name"
+  count_docs=$((count_docs+1))
+done
+
+echo "→ Installed: $count_skills skill(s), $count_scripts script(s), $count_docs doc(s)"
+echo "→ Docs: $DOCS_TARGET"
 echo "→ Done. New skills load on the next session; scripts are available immediately."
